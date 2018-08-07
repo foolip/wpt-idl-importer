@@ -22,10 +22,11 @@ cd wpt
 git remote add fork https://autofoolip:$GH_TOKEN@github.com/autofoolip/wpt.git
 git push fork master
 
-# A temp file is needed because `git diff` holds index.lock.
-pathfile=`mktemp`
-git diff --name-only > "$pathfile"
-cat "$pathfile" | while read path; do
+# First handle added and modified files.
+# A temp file is needed because `git ls-files` holds index.lock.
+tmpfile=`mktemp`
+git ls-files --modified --others --exclude-standard > "$tmpfile"
+cat "$tmpfile" | while read path; do
     echo "Handling $path"
     shortname=`basename $path .idl`
     branchname="idl-file-updates-$shortname"
@@ -39,4 +40,7 @@ https://github.com/tidoust/reffy-reports/blob/$reffy_sha/whatwg/idl/$shortname.i
 EOM
     git push -f fork $branchname
 done
-rm "$pathfile"
+rm cat "$tmpfile"
+
+# TODO: If there are any deleted files, list them and exit with error.
+# git diff --quiet || git ls-files --deleted
