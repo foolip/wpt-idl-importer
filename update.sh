@@ -8,7 +8,7 @@ git clone --single-branch https://github.com/tidoust/reffy-reports.git
 # Apply fixes by merging in the wpt-idl-fixups branch.
 # Used if the reffy-reports output is temporarily broken.
 cd reffy-reports
-reffy_sha=`git rev-parse HEAD`
+reffy_sha=`git rev-parse --short HEAD`
 git pull https://github.com/foolip/reffy-reports.git wpt-idl-fixups
 cd ..
 
@@ -33,6 +33,7 @@ cat "$pathfile" | while read path; do
     git add "$path"
     git commit -F - << EOM
 Update $path
+
 Copied by https://github.com/foolip/wpt-idl-importer from:
 https://github.com/tidoust/reffy-reports/blob/$reffy_sha/whatwg/idl/$shortname.idl
 EOM
