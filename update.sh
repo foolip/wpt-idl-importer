@@ -14,7 +14,6 @@ cd ..
 
 git clone --single-branch https://github.com/web-platform-tests/wpt.git
 
-rm wpt/interfaces/*.idl
 cp reffy-reports/whatwg/idl/*.idl wpt/interfaces/
 
 cd wpt
@@ -42,5 +41,4 @@ EOM
 done
 rm "$tmpfile"
 
-# TODO: If there are any deleted files, list them and exit with error.
-# git diff --quiet || git ls-files --deleted
+# TODO: Check if wpt has IDL files not in reffy-reports and list them.
