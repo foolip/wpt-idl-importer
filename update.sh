@@ -5,8 +5,8 @@ set -o pipefail
 
 git clone --single-branch https://github.com/tidoust/reffy-reports.git
 
-# apply fixes by merging in the wpt-idl-fixups branch.
-# used if the reffy-reports output is temporarily broken.
+# Apply fixes by merging in the wpt-idl-fixups branch.
+# Used if the reffy-reports output is temporarily broken.
 cd reffy-reports
 git pull https://github.com/foolip/reffy-reports.git wpt-idl-fixups
 cd ..
@@ -21,7 +21,7 @@ cd wpt
 git remote add fork https://autofoolip:$GH_TOKEN@github.com/autofoolip/wpt.git
 git push fork master
 
-# temp file is needed because `git diff` holds index.lock
+# A temp file is needed because `git diff` holds index.lock.
 pathfile=`mktemp`
 git diff --name-only > "$pathfile"
 cat "$pathfile" | while read path; do
@@ -34,6 +34,3 @@ cat "$pathfile" | while read path; do
     git push -f fork $branchname
 done
 rm "$pathfile"
-
-# show untracked files
-git status
