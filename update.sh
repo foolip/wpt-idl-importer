@@ -40,7 +40,7 @@ https://github.com/tidoust/reffy-reports/blob/$reffy_sha/whatwg/idl/$shortname.i
 EOM
     git push -f fork $branchname
 done
-rm cat "$tmpfile"
+rm "$tmpfile"
 
 # TODO: If there are any deleted files, list them and exit with error.
 # git diff --quiet || git ls-files --deleted
