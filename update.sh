@@ -3,8 +3,15 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-git clone --depth 1 https://github.com/web-platform-tests/wpt.git
-git clone --depth 1 https://github.com/tidoust/reffy-reports.git
+git clone --single-branch https://github.com/tidoust/reffy-reports.git
+
+# apply fixes by merging in the wpt-idl-fixups branch.
+# used if the reffy-reports output is temporarily broken.
+cd reffy-reports
+git pull https://github.com/foolip/reffy-reports.git wpt-idl-fixups
+cd ..
+
+git clone --single-branch https://github.com/web-platform-tests/wpt.git
 
 rm wpt/interfaces/*.idl
 cp reffy-reports/whatwg/idl/*.idl wpt/interfaces/
