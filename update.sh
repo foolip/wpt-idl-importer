@@ -5,11 +5,11 @@ set -o pipefail
 
 git clone --single-branch https://github.com/tidoust/reffy-reports.git
 
-# Apply fixes by merging in the wpt-idl-fixups branch.
-# Used if the reffy-reports output is temporarily broken.
 cd reffy-reports
 reffy_sha=`git rev-parse --short HEAD`
-git pull https://github.com/foolip/reffy-reports.git wpt-idl-fixups
+# Apply fixes by merging in the wpt-idl-fixups branch.
+# Used if the reffy-reports output is temporarily broken.
+# git pull https://github.com/foolip/reffy-reports.git wpt-idl-fixups
 cd ..
 
 git clone --single-branch https://github.com/web-platform-tests/wpt.git
